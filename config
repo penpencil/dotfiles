@@ -1,0 +1,108 @@
+
+set $mod Mod4
+
+bindsym $mod+Shift+r restart
+bindsym $mod+Shift+w reload
+
+bindsym $mod+Return exec xterm # start a terminal
+#bindsym $mod+d exec dmenu_run # start dmenu (a program launcher)
+bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+
+font pango:monospace 12
+
+# switch to workspace
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+
+workspace_auto_back_and_forth yes
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+
+bindsym $mod+q kill # kill focused window
+bindsym $mod+shift+f [class="(?i)firefox"] kill
+
+# change focus
+bindsym $mod+h focus left
+bindsym $mod+l focus right
+
+# move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+l move right
+#container
+bindsym $mod+t layout tabbed
+bindsym $mod+s layout toggle split
+
+bindsym $mod+r mode "resize"
+mode "resize" {
+        bindsym h resize shrink width 10 px or 10 ppt
+        bindsym k resize grow height 10 px or 10 ppt
+        bindsym j resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
+        
+        bindsym Escape mode "default" 
+        bindsym Return mode "default"
+}
+
+######Multimedia
+#sound 
+bindsym XF86AudioRaiseVolume exec amixer -q set Master 10%+ unmute
+bindsym XF86AudioLowerVolume exec amixer -q set Master 10%- unmute
+bindysm XF86AudioMute exec amixer -q set Master toggle
+
+
+bar {
+status_command i3blocks
+font pango:DejaVu Sans Mono 13
+position top
+separator_symbol "|"
+    colors {
+        background #000000
+        statusline #ffffff
+        separator #fff666
+	#<colorclass> <border> <background> <text>
+        focused_workspace  #4c7899 #285577 #ffffff
+        active_workspace   #333333 #5f676a #ffffff
+        inactive_workspace #333333 #222222 #888888
+    }
+}
+
+set $Locker i3lock && sleep 1
+set $mode_launcher power: [s]uspend [l]ock [S]hutdown [e]logout
+bindsym $mod+End mode "$mode_launcher"
+mode "$mode_launcher" {
+    bindsym l exec --no-startup-id $Locker, mode "default"
+    bindsym e exec --no-startup-id i3-msg exit, mode "default"
+    bindsym s exec --no-startup-id $Locker && systemctl suspend, mode "default"
+    bindsym Shift+s exec --no-startup-id shutdown now , mode "default" 
+
+    bindsym Escape mode "default"
+    bindsym Return mode "default"
+}
+
+set $mode_launch browser: [i]nternet [f]ile
+bindsym $mod+b mode "$mode_launch"
+mode "$mode_launch" {
+    bindsym i exec opera
+    bindsym f exec pcmanfm
+
+    bindsym Escape mode "default"
+    bindsym Return mode "default"
+}
+
+set $brightness brightness: [k]inc [j]dec
+bindsym $mod+Insert mode "$brightness"
+mode "$brightness" {
+    bindsym k exec xbacklight -inc 10
+    bindsym j exec xbacklight -dec 10
+
+    bindsym Escape mode "default"
+    bindsym Return mode "default"
+}

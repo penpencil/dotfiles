@@ -1,2 +1,1 @@
-# dotfiles
-laptop configs
+dotfiles
