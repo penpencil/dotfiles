@@ -1,4 +1,4 @@
-let mapleader= " "
+let mapleader = " "
 
 set mouse=n
 
@@ -45,3 +45,6 @@ nnoremap <silent> <Tab> za
 
 "insert comment 
 nnoremap <leader>8 i/*<esc>o*/<esc>O
+
+nnoremap <leader>v :tabnew ~/.vimrc<cr>
+nnoremap <leader>sv :source ~/.vimrc<cr>
